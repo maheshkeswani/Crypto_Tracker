@@ -13,11 +13,13 @@ import {
 } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
+import AuthModal from "./Authentication/AuthModal";
+import Sidebar from "./Authentication/Sidebar";
 
 const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
-    color: "#0D24E3",
+    color: "#EEBC1D",
     fontFamily: "Montserrat",
     fontWeight: "bold",
     cursor: "pointer",
@@ -35,7 +37,7 @@ const darkTheme = createTheme({
 
 function Header() {
   const classes = useStyles();
-  const { currency, setCurrency } = CryptoState();
+  const { currency, setCurrency,user} = CryptoState();
 
   const history = useHistory();
 
@@ -63,6 +65,7 @@ function Header() {
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"INR"}>INR</MenuItem>
             </Select>
+           { user ? <Sidebar/> : <AuthModal/> }
           </Toolbar>
         </Container>
       </AppBar>
