@@ -2,14 +2,13 @@ import { Button, LinearProgress, makeStyles, Typography } from "@material-ui/cor
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ReactHtmlParser from "react-html-parser";
 import CoinInfo from "../components/CoinInfo";
 import { SingleCoin } from "../config/api";
 import { numberWithCommas } from "../components/CoinsTable";
 import { CryptoState } from "../CryptoContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
-
+import parse from 'html-react-parser';
 const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
@@ -136,7 +135,7 @@ setAlert({
           {coin?.name}
         </Typography>
         <Typography variant="subtitle1" className={classes.description}>
-          {ReactHtmlParser(coin?.description.en.split(". ")[0])}.
+          {parse(coin?.description.en.split(". ")[0])}.
         </Typography>
         <div className={classes.marketData}>
           <span style={{ display: "flex" }}>
